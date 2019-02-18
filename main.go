@@ -24,6 +24,10 @@ func init() {
 	goth.UseProviders(provider)
 	store.MaxLength(math.MaxInt64)
 	gothic.Store = store
+	fmt.Println(os.Getenv("XERO_KEY"))
+	fmt.Println(os.Getenv("XERO_SECRET"))
+	fmt.Println("XERO_SECRET")
+	fmt.Println(os.TempDir())
 }
 
 var indexTemplate = `<p><a href="/auth/?provider=xero">Connect To Xero</a></p>`
@@ -73,7 +77,9 @@ func disconnectHandler(res http.ResponseWriter, req *http.Request) {
 	res.WriteHeader(http.StatusTemporaryRedirect)
 }
 func findContactsHandler(res http.ResponseWriter, req *http.Request) {
+
 	session, err := provider.GetSessionFromStore(req, res)
+	fmt.Println(session)
 	if err != nil {
 		fmt.Fprintln(res, err)
 		return
